@@ -3,10 +3,13 @@ RSpec.describe "POST /v1/articles", type: :request do
     before do
       post '/api/v1/articles',
       params: {
-        title: 'Back from vacation',
-        lead: 'Back to reality',
-        content: 'Life is wondefull',
-        category: 'sports'
+        article: {
+          title: 'Back from vacation',
+          lead: 'Back to reality',
+          content: 'Life is wondefull',
+          category: 'sports'
+  
+        }
       }
     end
 
