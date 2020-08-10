@@ -1,4 +1,13 @@
 RSpec.describe "POST /v1/articles", type: :request do
+  let (:image) {
+    {
+      type: 'application/json',
+      encoder: 'name=iphone_picture.jpg:base64',
+      data: 'cxjierwngpewrggfh9werpnbejnigvnqgerpjf0kqkw',
+      extension: 'jpg'
+    }
+  }
+
   describe 'successfully with correct params' do
     before do
       post '/api/v1/articles',
@@ -7,8 +16,8 @@ RSpec.describe "POST /v1/articles", type: :request do
           title: 'Back from vacation',
           lead: 'Back to reality',
           content: 'Life is wondefull',
-          category: 'sports'
-  
+          category: 'sports',
+          image: image
         }
       }
     end
