@@ -2,7 +2,7 @@ RSpec.describe "POST /v1/articles", type: :request do
   let (:image) {
     {
       type: 'application/json',
-      encoder: 'name=iphone_picture.jpg:base64',
+      encoder: 'iphone_picture',
       data: 'cxjierwngpewrggfh9werpnbejnigvnqgerpjf0kqkw',
       extension: 'jpg'
     }
@@ -31,7 +31,7 @@ RSpec.describe "POST /v1/articles", type: :request do
     end
 
     it 'articles is expected to have image attached' do
-      expect(Article.last.image.attached).to eq true
+      expect(Article.last.image.attached?).to eq true
     end
   end
 end
