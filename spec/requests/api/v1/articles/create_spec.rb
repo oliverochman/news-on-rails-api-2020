@@ -29,5 +29,9 @@ RSpec.describe "POST /v1/articles", type: :request do
     it 'expected to return success message' do
       expect(response_json["message"]).to eq "Article successfully created"
     end
+
+    it 'articles is expected to have image attached' do
+      expect(Article.last.image.attached).to eq true
+    end
   end
 end
