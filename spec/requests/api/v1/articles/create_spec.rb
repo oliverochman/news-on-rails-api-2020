@@ -48,11 +48,11 @@ RSpec.describe "POST /v1/articles", type: :request do
       end
 
       it 'is expected to return 400 response status' do
-        expect(response).to have_http_status 400
+        expect(response).to have_http_status 422
       end
   
       it 'is expected to return error message' do
-        expect(response_json['message']).to eq 'error message'
+        expect(response_json['message']).to eq "Title can't be blank, Lead can't be blank, Content can't be blank, and Category can't be blank"
       end
     end
 
@@ -72,11 +72,11 @@ RSpec.describe "POST /v1/articles", type: :request do
       end
   
       it 'is expected to return error message' do
-        expect(response_json['message']).to eq 'you need to login in order to access'
+        expect(response_json['errors'].first).to eq 'You need to sign in or sign up before continuing.'
       end
     end
     
-    describe " user that is not journalist " do
+    describe "user that is not journalist" do
       let(:unauthorized_user) { create(:user, role: 'registered') }
       let(:unauthorized_user_credentials) { unauthorized_user.create_new_auth_token }
       let(:unauthorized_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(unauthorized_user_credentials) }
@@ -91,12 +91,12 @@ RSpec.describe "POST /v1/articles", type: :request do
         }, headers: unauthorized_headers
       end
 
-      it 'is expected to return 400 response status' do
-        expect(response).to have_http_status 400
+      it 'is expected to return 401 response status' do
+        expect(response).to have_http_status 401
       end
   
       it 'is expected to return error message' do
-        expect(response_json['message']).to eq 'error message'
+        expect(response_json['message']).to eq 'You are not authorized to access this action'
       end
     end
     
